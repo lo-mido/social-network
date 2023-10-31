@@ -7,6 +7,7 @@ module.exports = {
       const users = await User.find();
       res.json(users);
     } catch (err) {
+      console.error(err);
       res.status(500).json(err);
     }
   },
@@ -60,12 +61,12 @@ module.exports = {
   },
 
   async deleteUser(req, res) {
-     try {
-      const thought = await Thought.findOneAndRemove({ username: req.body.username });
+      try {
+    //   const thought = await User.findOneAndRemove({ _id: req.params.userId });
 
-      if (!thought) {
-        return res.status(404).json({ message: 'No thought with this id!' });
-      }
+    //   if (!thought) {
+    //     return res.status(404).json({ message: 'User is Deleted!' });
+    //   }
 
       const user = await User.findOneAndRemove(
         { _id: req.params.userId }, 

@@ -35,7 +35,7 @@ thoughtSchema
   .virtual('reactionCount')
   // Getter
   .get(function () {
-    return this.responses.length;
+    return this.reactions.length;
   });
 
 // Initialize our Video model
