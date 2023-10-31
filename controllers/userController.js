@@ -26,6 +26,7 @@ module.exports = {
   },
   // create a new user
   async createUser(req, res) {
+    console.log(req.body);
     try {
       const dbUserData = await User.create(req.body);
       res.json(dbUserData);
@@ -66,8 +67,8 @@ module.exports = {
         return res.status(404).json({ message: 'No thought with this id!' });
       }
 
-      const user = await User.findOneAndUpdate(
-        { _id: req.params.videoId }, 
+      const user = await User.findOneAndRemove(
+        { _id: req.params.userId }, 
         { new: true }
       );
 
@@ -83,10 +84,47 @@ module.exports = {
     }
   },
   async addFriend(req, res) {
+    try {
+      const thought = await Thought.create(req.body);
+      const user = await User.findOneAndUpdate(
+        { _id: req.params.userId },
+        { $addToSet: { friends: req.params.friendId } },
+        { new: true }
+      );
+
+      if (!user) {
+        return res.status(404).json({
+          message: 'Friend added, but found no user with that ID',
+        });
+      }
+
+      res.json('Created the add friend 🎉');
+    } catch (err) {}
 
   },
   
   async removeFriend(req, res) {
+
+    try {
+      
+
+
+      const user = await User.findOneAndUpdate(
+        { _id: req.params.userId },
+        { $pull: { friends: req.params.friendId } },
+        { new: true }
+      );
+
+      if (!user) {
+        return res
+          .status(404)
+          .json({ message: 'Friend created but no user with this id!' });
+      }
+
+      res.json({ message: 'Friend successfully deleted!' });
+    } catch (err) {
+      res.status(500).json(err);
+    }
 
   },
 
