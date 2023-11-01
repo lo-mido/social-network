@@ -4,7 +4,8 @@ const Thought = require('../models/Thought');
 module.exports = {
   async getUsers(req, res) {
     try {
-      const users = await User.find();
+      const users = await User.find()
+      .populate("thoughts");
       res.json(users);
     } catch (err) {
       console.error(err);
@@ -14,7 +15,8 @@ module.exports = {
   async getSingleUser(req, res) {
     try {
       const user = await User.findOne({ _id: req.params.userId })
-        .select('-__v');
+        .select('-__v')
+        .populate("thoughts");
 
       if (!user) {
         return res.status(404).json({ message: 'No user with that ID' });
@@ -86,7 +88,6 @@ module.exports = {
   },
   async addFriend(req, res) {
     try {
-      const thought = await Thought.create(req.body);
       const user = await User.findOneAndUpdate(
         { _id: req.params.userId },
         { $addToSet: { friends: req.params.friendId } },
