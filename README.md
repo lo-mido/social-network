@@ -49,7 +49,7 @@ If you want to contribute to this project, follow these steps:
 6. Push your changes to your forked repository on GitHub.
 7. Create a pull request to the original repository, explaining your changes.
 
-<https://watch.screencastify.com/v/mHVd0Rfv43P0fum93O5k>
+<https://watch.screencastify.com/v/5TXAkt5baZeVLlNetrNu>
 
 By contributing to this project, you can help enhance the efficiency and effectiveness of generating high-quality READMEs for a wide range of open-source projects. Your contributions will be valuable in promoting collaboration and fostering a developer-friendly environment.
   
